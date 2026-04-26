@@ -6,12 +6,6 @@ WORKDIR /tmp/src
 ENV PATH="/opt/x86_64-linux-musl-cross/bin:${PATH}"
 ENV PATH="/opt/aarch64-linux-musl-cross/bin:${PATH}"
 ENV PATH="/opt/riscv64-linux-musl-cross/bin:${PATH}"
-RUN wget --retry-connrefused --waitretry=1 --timeout=20 --tries=10 \
-      https://musl.cc/x86_64-linux-musl-cross.tgz \
-    && wget --retry-connrefused --waitretry=1 --timeout=20 --tries=10 \
-      https://musl.cc/x86_64-linux-musl-cross.tgz \
-    && wget --retry-connrefused --waitretry=1 --timeout=20 --tries=10 \
-      https://musl.cc/x86_64-linux-musl-cross.tgz -P
 ADD --unpack=true http://musl.cc/x86_64-linux-musl-cross.tgz /opt
 ADD --unpack=true http://musl.cc/aarch64-linux-musl-cross.tgz /opt
 ADD --unpack=true http://musl.cc/riscv64-linux-musl-cross.tgz /opt
