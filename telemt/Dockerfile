@@ -6,9 +6,15 @@ WORKDIR /tmp/src
 ENV PATH="/opt/x86_64-linux-musl-cross/bin:${PATH}"
 ENV PATH="/opt/aarch64-linux-musl-cross/bin:${PATH}"
 ENV PATH="/opt/riscv64-linux-musl-cross/bin:${PATH}"
-ADD --unpack=true https://musl.cc/x86_64-linux-musl-cross.tgz /opt
-ADD --unpack=true https://musl.cc/aarch64-linux-musl-cross.tgz /opt
-ADD --unpack=true https://musl.cc/riscv64-linux-musl-cross.tgz /opt
+RUN wget --retry-connrefused --waitretry=1 --timeout=20 --tries=10 \
+      https://musl.cc/x86_64-linux-musl-cross.tgz \
+    && wget --retry-connrefused --waitretry=1 --timeout=20 --tries=10 \
+      https://musl.cc/x86_64-linux-musl-cross.tgz \
+    && wget --retry-connrefused --waitretry=1 --timeout=20 --tries=10 \
+      https://musl.cc/x86_64-linux-musl-cross.tgz -P
+ADD --unpack=true http://musl.cc/x86_64-linux-musl-cross.tgz /opt
+ADD --unpack=true http://musl.cc/aarch64-linux-musl-cross.tgz /opt
+ADD --unpack=true http://musl.cc/riscv64-linux-musl-cross.tgz /opt
 ADD https://github.com/telemt/telemt.git${VERSION:+#}${VERSION} .
 RUN install -m 644 /dev/stdin -D ./.cargo/config.toml <<-EOF
         [target.x86_64-unknown-linux-musl]
