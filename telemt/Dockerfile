@@ -66,6 +66,6 @@ RUN apk add --no-cache \
     && chown -R telemt:telemt /var/cache/telemt /run/secrets/telemt
 WORKDIR /opt/telemt
 USER telemt:telemt
-HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --start-interval=15 --retries=3 \
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --start-interval=15s --retries=3 \
   CMD curl -f http://localhost:9091/api/health || exit 1
 ENTRYPOINT ["telemt"]
